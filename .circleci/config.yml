@@ -9,7 +9,7 @@ executors:
       - image: joshhsoj1902/circleci-build-image:latest
 
 jobs:
-  build:
+  build-docker:
     executor: docker-publisher
     steps:
       - checkout
@@ -26,7 +26,7 @@ jobs:
           root: .
           paths:
             - ./image.tar
-  publish-latest:
+  publish-docker-latest:
     executor: docker-publisher
     steps:
       - attach_workspace:
@@ -43,7 +43,7 @@ jobs:
             docker tag $IMAGE_NAME:latest $IMAGE_NAME:$IMAGE_TAG
             docker push $IMAGE_NAME:latest
             docker push $IMAGE_NAME:$IMAGE_TAG
-  publish-tag:
+  publish-docker-tag:
     executor: docker-publisher
     steps:
       - checkout
@@ -64,15 +64,15 @@ jobs:
 workflows:
   build:
     jobs:
-      - build
-      - publish-latest:
+      - build-docker
+      - publish-docker-latest:
           requires:
-            - build
+            - build-docker
           filters:
             branches:
               only: master
       # This doesn't work because the commit doesn't change after tagging, and while CCI knows the tag happened, it doesn't trigger a build.
-      - publish-tag:
+      - publish-docker-tag:
           filters:
             tags:
               only: /^v.*/
