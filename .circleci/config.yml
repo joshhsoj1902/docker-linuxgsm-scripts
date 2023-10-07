@@ -2,6 +2,7 @@ version: 2.1
 
 executors:
   docker-publisher:
+    resource_class: "small"
     environment:
       IMAGE_NAME: joshhsoj1902/docker-linuxgsm-scripts
     docker:
@@ -16,7 +17,7 @@ jobs:
       - run:
           name: "Build image"
           command: |
-            # docker pull $IMAGE_NAME:latest
+            docker pull $IMAGE_NAME:latest
             make build
       - run:
           name: Archive Docker image
