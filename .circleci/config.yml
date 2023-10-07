@@ -3,7 +3,7 @@ version: 2.1
 executors:
   docker-publisher:
     environment:
-      IMAGE_NAME: joshhsoj1902/circleci-build-image
+      IMAGE_NAME: joshhsoj1902/docker-linuxgsm-scripts
     docker:
       - image: joshhsoj1902/circleci-build-image:latest
 
