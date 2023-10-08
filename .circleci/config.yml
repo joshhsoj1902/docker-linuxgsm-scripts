@@ -70,7 +70,6 @@ workflows:
           filters:
             branches:
               only: main
-      # This doesn't work because the commit doesn't change after tagging, and while CCI knows the tag happened, it doesn't trigger a build.
       - publish-docker-tag:
           filters:
             tags:
