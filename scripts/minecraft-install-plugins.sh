@@ -6,7 +6,7 @@ PluginDir=/data/serverfiles/plugins
 DownloadDir=/app/mc-plugins
 
 function doInstall {
-    if $installMode; then
+    if [ $installMode == true ]; then
         echo "Installing $1"
         cp -p $DownloadDir/$1 $PluginDir
     fi
