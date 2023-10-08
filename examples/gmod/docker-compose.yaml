@@ -12,13 +12,13 @@ services:
     command: /bin/sh -c 'mkdir -p /mnt/html/fastdl && chown -R 1000:1000 /mnt/html'
   css_install:
     build:
-      dockerfile: placeholders/Dockerfile.css
+      dockerfile: placeholders/css.Dockerfile
     command: auto-install
     volumes:
       - cssmount:/data
   hl2_install:
     build:
-      dockerfile: placeholders/Dockerfile.hl2dm
+      dockerfile: placeholders/hl2dm.Dockerfile
     command: auto-install
     volumes:
       - hl2mount:/data
