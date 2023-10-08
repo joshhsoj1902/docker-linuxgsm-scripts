@@ -3,3 +3,6 @@ build:
 
 publish:
 	docker push joshhsoj1902/docker-linuxgsm-scripts:latest
+
+test:
+	cd tests && ./run-tests.sh
