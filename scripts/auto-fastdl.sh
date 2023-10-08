@@ -1,3 +1,3 @@
 #!/bin/bash
 
-yes | /app/${GAMESERVER} fastdl
+yes | /app/"${GAMESERVER}" fastdl

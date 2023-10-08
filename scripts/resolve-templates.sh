@@ -21,8 +21,8 @@ chmod +x $tmpFile
 
 
 echo "Running envsubst"
-find $dest/config-lgsm -type f -name '*'$LGSM_HELPER_TEMPLATE_EXTENSION -exec $tmpFile {} \;
-find $dest/serverfiles -type f -name '*'$LGSM_HELPER_TEMPLATE_EXTENSION -exec $tmpFile {} \;
+find "$dest"/config-lgsm -type f -name '*'$LGSM_HELPER_TEMPLATE_EXTENSION -exec $tmpFile {} \;
+find "$dest"/serverfiles -type f -name '*'$LGSM_HELPER_TEMPLATE_EXTENSION -exec $tmpFile {} \;
 echo "Done envsubst"
 
-# rm $tmpFile
+rm $tmpFile

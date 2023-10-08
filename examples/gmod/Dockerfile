@@ -1,4 +1,4 @@
-FROM joshhsoj1902/docker-linuxgsm-scripts:latest AS scripts
+FROM joshhsoj1902/docker-linuxgsm-scripts:1.0.0 AS scripts
 FROM gameservermanagers/gameserver:gmod
 
 # Install envsubt
@@ -24,7 +24,7 @@ COPY --from=scripts /scripts/resolve-templates.sh /app/hooks/post-install/51-res
 ENV LGSM_HELPER_OVERLAY_SRC=/layers
 ENV LGSM_HELPER_OVERLAY_DEST=/data
 ENV LGSM_HELPER_TEMPLATE_EXTENSION=.overlay-template
-ADD layers /layers
+COPY layers /layers
 
 # Setup Custom Hooks
-ADD hooks /app/hooks
+COPY hooks /app/hooks
