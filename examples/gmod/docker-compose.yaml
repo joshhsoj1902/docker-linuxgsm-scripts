@@ -1,0 +1,56 @@
+version: "3.4"
+volumes:
+  cssmount:
+  hl2mount:
+  fastdl_assets:
+services:
+  # Ensure file permissions in the fastdl directory are right
+  setup_fastdl_assets:
+    image: busybox
+    volumes:
+      - fastdl_assets:/mnt/html
+    command: /bin/sh -c 'mkdir -p /mnt/html/fastdl && chown -R 1000:1000 /mnt/html'
+  css_install:
+    build:
+      dockerfile: placeholders/Dockerfile.css
+    command: auto-install
+    volumes:
+      - cssmount:/data
+  hl2_install:
+    build:
+      dockerfile: placeholders/Dockerfile.hl2dm
+    command: auto-install
+    volumes:
+      - hl2mount:/data
+  linuxgsm:
+    build:
+      dockerfile: Dockerfile
+    environment:
+      - SERVERNAME="${SERVERNAME:-LinuxGSM Gmod}"
+      - RCON_PASSWORD="${RCON_PASSWORD:-password}"
+      - SV_PASSWORD="${SV_PASSWORD:-}"
+      - DOWNLOADURI="${FASTDL_HOST:-localhost}:${FASTDL_PORT:-8080}/fastdl"
+      - NGINX_PORT=${NGINX_PORT:-8080}
+    volumes:
+      - ${GAMEDATA_PATH:-./gamedata}:/data
+      - fastdl_assets:/app/public_html
+    ports:
+      - "27015:27015/tcp"
+      - "27015:27015/udp"
+      - "27015:27020/udp"
+      - "27015:27005/udp"
+    restart: always
+    depends_on:
+      css_install:
+        condition: service_completed_successfully
+      hl2_install:
+        condition: service_completed_successfully
+  fastdl_webserver:
+    image: nginx
+    restart: always
+    ports:
+      - "${NGINX_PORT:-8080}:80"
+    volumes:
+      - "fastdl_assets:/usr/share/nginx/html"
+    depends_on:
+      - linuxgsm
