@@ -1,4 +1,4 @@
-FROM joshhsoj1902/docker-linuxgsm-scripts:latest AS scripts
+FROM joshhsoj1902/docker-linuxgsm-scripts:testing AS scripts
 FROM gameservermanagers/gameserver:gmod
 
 COPY --from=scripts /scripts/auto-fastdl.sh /auto-fastdl.sh
