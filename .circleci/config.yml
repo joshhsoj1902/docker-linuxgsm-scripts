@@ -17,7 +17,6 @@ jobs:
       - run:
           name: "Build image"
           command: |
-            docker pull $IMAGE_NAME:latest
             make build
       - run:
           name: Archive Docker image
