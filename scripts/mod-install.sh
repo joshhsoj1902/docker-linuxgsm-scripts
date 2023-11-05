@@ -6,5 +6,5 @@ IFS=,
 set -f
 for i in $LGSM_HELPER_MODS; do
     echo "Installing mod ${i}"
-    echo -e "${i}\nY" | /app/${GAMESERVER} mods-install
+    echo -e "${i}\nY" | /app/"${GAMESERVER}" mods-install
 done

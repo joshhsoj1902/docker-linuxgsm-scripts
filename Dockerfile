@@ -1,6 +1,6 @@
-FROM alpine:latest
+FROM alpine:3.18
 
-ADD scripts /scripts
+COPY scripts /scripts
 
-ADD entrypoints/entrypoint-user.sh /entrypoint-user.sh
-ADD entrypoints/entrypoint.sh /entrypoint.sh
+COPY entrypoints/entrypoint-user.sh /entrypoint-user.sh
+COPY entrypoints/entrypoint.sh /entrypoint.sh
