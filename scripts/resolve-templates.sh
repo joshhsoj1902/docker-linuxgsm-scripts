@@ -15,7 +15,7 @@ echo \$src
 envsubst < \$src > \$dest
 rm \$src
 EOL
-chmod +x $tmpFile
+chmod +x $envsubFile
 
 #Setup gomplate file
 gomplateFile=/tmp/gomplate.sh
