@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# Include hidden directories
+shopt -s dotglob
+
 src="${1:-$LGSM_HELPER_OVERLAY_SRC}"
 dest="${2:-$LGSM_HELPER_OVERLAY_DEST}"
 

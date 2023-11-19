@@ -1,12 +1,10 @@
 #!/bin/bash
 
-# TODO: Consider swapping to gomplate to allow for better templating
-
 dest="${1:-$LGSM_HELPER_OVERLAY_DEST}"
 
-tmpFile=/tmp/envsub.sh
-
-cat >$tmpFile <<EOL
+# Setup envsub file
+envsubFile=/tmp/envsub.sh
+cat >$envsubFile <<EOL
 #!/bin/bash
 
 src=\$1
@@ -19,10 +17,30 @@ rm \$src
 EOL
 chmod +x $tmpFile
 
+#Setup gomplate file
+gomplateFile=/tmp/gomplate.sh
+cat >$gomplateFile <<EOL
+#!/bin/bash
+
+src=\$1
+dest=\${src//$LGSM_HELPER_GOMPLATE_EXTENSION/}
+
+echo \$src
+
+gomplate -f \$src -o \$dest
+rm \$src
+EOL
+chmod +x $gomplateFile
+
 
 echo "Running envsubst"
-find "$dest"/config-lgsm -type f -name '*'$LGSM_HELPER_TEMPLATE_EXTENSION -exec $tmpFile {} \;
-find "$dest"/serverfiles -type f -name '*'$LGSM_HELPER_TEMPLATE_EXTENSION -exec $tmpFile {} \;
+find "$dest"/config-lgsm -type f -name '*'$LGSM_HELPER_TEMPLATE_EXTENSION -exec $envsubFile {} \;
+find "$dest"/serverfiles -type f -name '*'$LGSM_HELPER_TEMPLATE_EXTENSION -exec $envsubFile {} \;
 echo "Done envsubst"
 
-rm $tmpFile
+echo "Running gomplate"
+find "$dest" -type f -name '*'$LGSM_HELPER_GOMPLATE_EXTENSION -exec $gomplateFile {} \;
+echo "Done gomplate"
+
+rm $envsubFile
+rm $gomplateFile
