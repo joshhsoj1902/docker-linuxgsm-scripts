@@ -14,7 +14,7 @@ for dir in $src/*/     # list directories in the form "/tmp/dirname/"
 do
     dir=${dir%*/}      # remove the trailing "/"
     echo "Applying $dir overlay"
-    cp -rp "$dir"/* "$dest"
+    cp --verbose -rp "$dir"/* "$dest"
 
 done
 

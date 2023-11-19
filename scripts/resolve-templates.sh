@@ -15,7 +15,7 @@ echo \$src
 envsubst < \$src > \$dest
 rm \$src
 EOL
-chmod +x $tmpFile
+chmod +x $envsubFile
 
 #Setup gomplate file
 gomplateFile=/tmp/gomplate.sh
@@ -34,12 +34,12 @@ chmod +x $gomplateFile
 
 
 echo "Running envsubst"
-find "$dest"/config-lgsm -type f -name '*'$LGSM_HELPER_TEMPLATE_EXTENSION -exec $envsubFile {} \;
-find "$dest"/serverfiles -type f -name '*'$LGSM_HELPER_TEMPLATE_EXTENSION -exec $envsubFile {} \;
+find "$dest"/config-lgsm -type f -name "*$LGSM_HELPER_TEMPLATE_EXTENSION" -exec $envsubFile {} \;
+find "$dest"/serverfiles -type f -name "*$LGSM_HELPER_TEMPLATE_EXTENSION" -exec $envsubFile {} \;
 echo "Done envsubst"
 
 echo "Running gomplate"
-find "$dest" -type f -name '*'$LGSM_HELPER_GOMPLATE_EXTENSION -exec $gomplateFile {} \;
+find "$dest" -type f -name "*$LGSM_HELPER_GOMPLATE_EXTENSION" -exec $gomplateFile {} \;
 echo "Done gomplate"
 
 rm $envsubFile
