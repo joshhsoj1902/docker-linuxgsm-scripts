@@ -1,4 +1,4 @@
-# docker-linuxgsm-scripts
+# docker-linuxgsm-scripts foo
 
 These scripts are meant to be used as "Pre/Post" hooks for images based off [GameServerManagers/docker-gameserver](https://github.com/GameServerManagers/docker-gameserver)
 
