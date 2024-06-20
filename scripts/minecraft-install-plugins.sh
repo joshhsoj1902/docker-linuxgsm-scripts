@@ -5,6 +5,7 @@ installMode=${1:-true}
 PluginDir=/data/serverfiles/plugins
 DownloadDir=/app/mc-plugins
 
+mkdir -p $PluginDir
 mkdir -p $DownloadDir
 
 function doInstall {
